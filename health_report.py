@@ -39,7 +39,7 @@ selector_q5 = Select(driver.find_element_by_id('q5'))
 selector_q5.select_by_value('9')
 
 
-def click_none_div(question_div_class:str, click_index:int, content_should_be='无'):
+def click_one_div(question_div_class:str, click_index:int, content_should_be='无'):
     check_boxes = driver.find_element_by_id(question_div_class).find_elements_by_class_name('ui-checkbox')
     click_one = check_boxes[click_index]
     print(click_one.find_element_by_class_name('label'))
@@ -47,8 +47,8 @@ def click_none_div(question_div_class:str, click_index:int, content_should_be='�
     click_one.find_element_by_class_name('jqcheck').click()
 
 
-click_none_div('div6',-1)
-click_none_div('div7',0)
+click_one_div('div6', -1)
+click_one_div('div7', 0)
 
 text_question_fill('q8','无')
 
