@@ -4,13 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 from yaml import full_load
+import numpy as np
+
+
 with open('personal_info.yaml',encoding='utf8') as yaml_file:
     personal_info = full_load(yaml_file)
 
 chrome = ChromeOptions(headless=False)
 
 driver = chrome.get_driver()
-driver.get(r'https://www.wjx.cn/m/59791426.aspx')
+driver.get(r'https://www.wjx.cn/m/63115031.aspx')
 
 
 def text_question_fill(question_id,text2input):
@@ -38,17 +41,23 @@ driver.switch_to.default_content()
 selector_q5 = Select(driver.find_element_by_id('q5'))
 selector_q5.select_by_value('9')
 
+temperature_decimal = np.random.randint(2,6,2)
+text_question_fill('q6',f"36.{temperature_decimal[0]}")
+text_question_fill('q7',f"36.{temperature_decimal[1]}")
 
-def click_one_div(question_div_class:str, click_index:int, content_should_be='无'):
-    check_boxes = driver.find_element_by_id(question_div_class).find_elements_by_class_name('ui-checkbox')
+
+def click_one_div(question_div_id:str, click_index:int, content_should_be='无', ui_class='ui-checkbox', jq_class='jqcheck'):
+    check_boxes = driver.find_element_by_id(question_div_id).find_elements_by_class_name(ui_class)
     click_one = check_boxes[click_index]
     print(click_one.find_element_by_class_name('label'))
     assert click_one.find_element_by_class_name('label').text == content_should_be, f"提供的click_index：{click_index}不正确"
-    click_one.find_element_by_class_name('jqcheck').click()
+    click_one.find_element_by_class_name(jq_class).click()
 
 
-click_one_div('div6', -1)
-click_one_div('div7', 0)
+click_one_div('div8', -1)
+click_one_div('div9', -1)
+click_one_div('div10', 0, content_should_be='回院上班', ui_class='ui-radio', jq_class='jqradio')
+click_one_div('div11', 0)
 
-text_question_fill('q8','无')
+text_question_fill('q12','无')
 
