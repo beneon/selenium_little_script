@@ -57,6 +57,7 @@ driver.switch_to.default_content()
 
 # 同理，不过这里有一个录入框，说不定可以通过send_keys解决
 # 不过search box没有id……所以还是继续按两次下然后再说吧
+# 但是我们发现选项的排序tm居然是随机的，干！
 # selector_q5 = Select(driver.find_element_by_id('q5'))
 # selector_q5.select_by_value('9')
 ele2 = driver.find_element_by_id('select2-q5-container')
